@@ -1,11 +1,14 @@
 import React from "react";
 import Banner from "./Banner";
+import Movies from "./Movies";
 
 const Home = () => {
   return (
     <>
-      <h1>Home page</h1>
       <Banner />
+      <div className="p-6">
+        <Movies />
+      </div>
     </>
   );
 };
