@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import { axiosApi } from "./config/apiconfig";
 
 const Home = () => {
   useEffect(() => {
@@ -7,9 +7,14 @@ const Home = () => {
   }, []);
 
   const fakeiApi = () => {
-    axios
-      .get("https://fakestoreapi.com/users")
-      .then((response) => console.log(response.data));
+    axiosApi
+      .get("/trending/movie/day?language=en-US")
+      .then((response) => {
+        console.log("movie response ", response);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return <div>Home component</div>;
