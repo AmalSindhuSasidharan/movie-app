@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
-import { axiosApi } from "./config/apiconfig";
+import React from "react";
+import Banner from "./Banner";
 
 const Home = () => {
-  useEffect(() => {
-    fakeiApi();
-  }, []);
-
-  const fakeiApi = () => {
-    axiosApi
-      .get("/trending/movie/day?language=en-US")
-      .then((response) => {
-        console.log("movie response ", response);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  return <div>Home component</div>;
+  return (
+    <>
+      <h1>Home page</h1>
+      <Banner />
+    </>
+  );
 };
 
 export default Home;
