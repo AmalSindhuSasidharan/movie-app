@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 
 const Home = () => {
   useEffect(() => {
@@ -6,9 +7,9 @@ const Home = () => {
   }, []);
 
   const fakeiApi = () => {
-    fetch("https://fakestoreapi.com/users")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    axios
+      .get("https://fakestoreapi.com/users")
+      .then((response) => console.log(response.data));
   };
 
   return <div>Home component</div>;
