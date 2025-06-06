@@ -13,6 +13,14 @@ const Movies = () => {
     getTrendingMovieList();
   }, [pageNo]);
 
+  useEffect(() => {
+    setWatchList(JSON.parse(localStorage.getItem("movieWatchList")) || []);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("movieWatchList", JSON.stringify(watchList));
+  }, [watchList]);
+
   const getTrendingMovieList = () => {
     axiosApi
       .get(`/trending/movie/day?language=en-US&page=${pageNo}`)
@@ -57,7 +65,7 @@ const Movies = () => {
 
   const removeFromWatchList = (movie) => {
     setWatchList((prev) => {
-      const filteredList = prev.filter((item) => item.id !== movie.ic);
+      const filteredList = prev.filter((item) => item.id !== movie.id);
       return [...filteredList];
     });
   };
