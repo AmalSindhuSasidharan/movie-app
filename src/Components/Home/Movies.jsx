@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { axiosApi } from "./config/apiconfig";
+import { axiosApi } from "../../config/apiconfig";
 import MovieCards from "./MovieCards";
 import Pagination from "./Pagination";
 

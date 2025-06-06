@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { axiosApi } from "./config/apiconfig";
+import { axiosApi } from "../../config/apiconfig";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Banner = () => {

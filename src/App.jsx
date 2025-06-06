@@ -1,9 +1,8 @@
 import "./App.css";
-import Movies from "./Movies";
-import WatchList from "./WatchList";
+import WatchList from "./Components/WatchList/WatchList";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import NavBar from "./NavBar";
+import Home from "./Components/Home/Home";
+import NavBar from "./Components/NavBar";
 
 function App() {
   return (
