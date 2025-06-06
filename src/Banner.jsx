@@ -37,12 +37,12 @@ const Banner = () => {
       {bannerData.length > 0 && (
         <div className="relative h-[50vh]">
           <div
-            className="h-full bg-cover bg-top"
+            className="h-full bg-cover bg-top rounded-xl"
             style={{
               backgroundImage: `url(${bannerData[currentIndex].image})`,
             }}
           >
-            <div className="text-white w-full text-center text-2xl p-4 bg-black/50">
+            <div className="text-white w-full text-center text-2xl p-4 bg-black/50 rounded-xl">
               {bannerData[currentIndex]?.title}
             </div>
           </div>

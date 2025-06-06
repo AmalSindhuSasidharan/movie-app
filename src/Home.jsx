@@ -5,8 +5,8 @@ import Movies from "./Movies";
 const Home = () => {
   return (
     <>
-      <Banner />
       <div className="p-6">
+        <Banner />
         <Movies />
       </div>
     </>

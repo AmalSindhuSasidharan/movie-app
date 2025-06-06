@@ -7,6 +7,7 @@ const Movies = () => {
   const [bannerData, setBannerData] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [watchList, setWatchList] = useState([]);
 
   useEffect(() => {
     getTrendingMovieList();
@@ -43,12 +44,36 @@ const Movies = () => {
     });
   };
 
+  const isMovieSelected = (movie) => {
+    const movieFromList = watchList.filter((item) => item.id === movie.id);
+    return movieFromList.length > 0 ? true : false;
+  };
+
+  const addToWatchList = (movie) => {
+    setWatchList((prev) => {
+      return [...prev, movie];
+    });
+  };
+
+  const removeFromWatchList = (movie) => {
+    setWatchList((prev) => {
+      const filteredList = prev.filter((item) => item.id !== movie.ic);
+      return [...filteredList];
+    });
+  };
+
   return (
     <>
-      <h1>Trending Movies</h1>
+      <h1 className="text-3xl font-bold py-5 text-center">Trending Movies</h1>
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8  gap-x-6 gap-y-8">
         {bannerData.map((movie, idx) => (
-          <MovieCards movie={movie} key={idx} />
+          <MovieCards
+            movie={movie}
+            key={idx}
+            isMovieSelected={isMovieSelected}
+            addToWatchList={addToWatchList}
+            removeFromWatchList={removeFromWatchList}
+          />
         ))}
       </div>
       <Pagination
