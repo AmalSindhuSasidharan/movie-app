@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { axiosApi } from "../../config/apiconfig";
+import { MovieContext } from "../MovieContextWrapper";
 import MovieCards from "./MovieCards";
+import MovieInfo from "./MovieInfo";
 import Pagination from "./Pagination";
 
 const Movies = () => {
   const [bannerData, setBannerData] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [watchList, setWatchList] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogData, setDialogData] = useState(null);
+
+  const { watchList } = useContext(MovieContext);
 
   useEffect(() => {
     getTrendingMovieList();
   }, [pageNo]);
-
-  useEffect(() => {
-    setWatchList(JSON.parse(localStorage.getItem("movieWatchList")) || []);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("movieWatchList", JSON.stringify(watchList));
-  }, [watchList]);
 
   const getTrendingMovieList = () => {
     axiosApi
@@ -57,17 +54,9 @@ const Movies = () => {
     return movieFromList.length > 0 ? true : false;
   };
 
-  const addToWatchList = (movie) => {
-    setWatchList((prev) => {
-      return [...prev, movie];
-    });
-  };
-
-  const removeFromWatchList = (movie) => {
-    setWatchList((prev) => {
-      const filteredList = prev.filter((item) => item.id !== movie.id);
-      return [...filteredList];
-    });
+  const openMovieInfoDialog = (movie) => {
+    setDialogData(movie);
+    setOpenDialog(true);
   };
 
   return (
@@ -79,8 +68,7 @@ const Movies = () => {
             movie={movie}
             key={idx}
             isMovieSelected={isMovieSelected}
-            addToWatchList={addToWatchList}
-            removeFromWatchList={removeFromWatchList}
+            openMovieInfoDialog={openMovieInfoDialog}
           />
         ))}
       </div>
@@ -89,6 +77,11 @@ const Movies = () => {
         handleNext={handleNext}
         handlePrev={handlePrev}
       />
+      {openDialog && dialogData ? (
+        <MovieInfo setOpenDialog={setOpenDialog} dialogData={dialogData} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

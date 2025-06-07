@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import genreids from "../../config/genreId";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import { MovieContext } from "../MovieContextWrapper";
 
 const WatchList = () => {
-  const [watchList, setWatchList] = useState([]);
   const [search, setSearch] = useState("");
+
+  const { watchList, setWatchList, removeFromWatchList } = useContext(
+    MovieContext
+  );
 
   useEffect(() => {
     setWatchList(JSON.parse(localStorage.getItem("movieWatchList")));
   }, []);
-
-  const removeFromWatchList = (movie) => {
-    setWatchList((prev) => {
-      const filteredList = prev.filter((item) => item.id !== movie.id);
-      return [...filteredList];
-    });
-  };
 
   const handleAscendingOrderRatings = () => {
     const sorted = watchList.sort((a, b) => a.vote_average - b.vote_average);
@@ -70,8 +67,8 @@ const WatchList = () => {
                 .trim()
                 .includes(search.toLowerCase().trim())
             )
-            .map((movie) => (
-              <tr>
+            .map((movie, idx) => (
+              <tr key={idx}>
                 <td className="flex items-center  px-6 py-4 font-normal text-gray-900">
                   <img
                     className="h-[6rem] w-[10rem] object-cover"

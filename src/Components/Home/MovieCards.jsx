@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MovieContext } from "../MovieContextWrapper";
 
-const MovieCards = ({
-  movie,
-  isMovieSelected,
-  removeFromWatchList,
-  addToWatchList,
-}) => {
+const MovieCards = ({ movie, isMovieSelected, openMovieInfoDialog }) => {
+  const { addToWatchList, removeFromWatchList } = useContext(MovieContext);
   return (
     <div
       style={{
@@ -28,7 +25,10 @@ const MovieCards = ({
           &#128525;
         </button>
       )}
-      <div className="text-white w-full text-center text-xl p-2 bg-gray-900/70 rounded-xl">
+      <div
+        className="text-white w-full text-center text-xl p-2 bg-gray-900/70 rounded-xl"
+        onClick={() => openMovieInfoDialog(movie)}
+      >
         {movie.title}
       </div>
     </div>
